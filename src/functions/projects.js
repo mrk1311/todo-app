@@ -1,3 +1,5 @@
+const { toDate, format } = require("date-fns");
+
 export const projects = [
     {
         id: 1,
@@ -8,6 +10,7 @@ export const projects = [
                 name: 'Dodaj input do przycisku +',
                 description: 'w celu dodania nowego projektu',
                 dueDate: '2024-11-24',
+                formatedDate: format(toDate('2024-11-24'), 'EEEE, MMM do, yyyy'),
                 priority: 'low',
                 completed: true,
             },
@@ -16,6 +19,7 @@ export const projects = [
                 name: 'Dodaj przycisk usuwania zadania',
                 description: 'w celu umożliwienia usunięcia zadania',
                 dueDate: '2024-12-24',
+                formatedDate: format(toDate('2024-12-24'), 'EEEE, MMM do, yyyy'),
                 priority: 'medium',
                 completed: true,
             },
@@ -24,6 +28,7 @@ export const projects = [
                 name: 'Zmień wygląd checkboxa i przycisków usuwania',
                 description: 'żeby lepiej wyglądały',
                 dueDate: '2024-01-24',
+                formatedDate: format(toDate('2024-01-24'), 'EEEE, MMM do, yyyy'),
                 priority: 'high',
                 completed: false,
             }
@@ -38,6 +43,7 @@ export const projects = [
                 name: 'Dodaj zapis do local storage',
                 description: 'aby dane nie zniknęły po odświeżeniu strony',
                 dueDate: '2020-11-24',
+                formatedDate: format(toDate('2024-11-24'), 'EEEE, MMM do, yyyy'),
                 priority: 'high',
                 completed: false,
             },
@@ -46,8 +52,9 @@ export const projects = [
                 name: 'Dodaj tą bibliotekę z datami',
                 description: 'w celu wyświetlania daty',
                 dueDate: '2021-01-20',
+                formatedDate: format(toDate('2021-01-20'), 'EEEE, MMM do, yyyy'),
                 priority: 'low',
-                completed: false,
+                completed: true,
             }
         ]
     }
@@ -72,6 +79,7 @@ export function addTask(project, newTaskName, newTaskDescription, newTaskDueDate
         name: newTaskName,
         description: newTaskDescription,
         dueDate: newTaskDueDate,
+        formatedDate: format(toDate(newTaskDueDate), 'EEEE, MMMM do, yyyy'),
         priority: newTaskPriority
     };
     project.tasks.push(task);
@@ -81,6 +89,7 @@ export function editTask(task, newName, newDescription, newDueDate, newPriority)
     task.name = newName;
     task.description = newDescription;
     task.dueDate = newDueDate;
+    task.formatedDate = format(toDate(newDueDate), 'EEEE, MMMM do, yyyy');
     task.priority = newPriority;
 }
 

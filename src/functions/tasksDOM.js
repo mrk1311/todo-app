@@ -158,7 +158,7 @@ export const tasksDOM = (() => {
             if (newDueDate) {
                 task.dueDate = newDueDate;
                 editTask(task, task.name, task.description, newDueDate, task.priority);
-                taskDueDate.textContent = newDueDate;
+                taskDueDate.textContent = task.formatedDate;
             }
 
             console.log(task);
@@ -176,11 +176,6 @@ export const tasksDOM = (() => {
 
         const dueDateSubmitButton = document.createElement("button");
         dueDateSubmitButton.style.display = "none";
-        // dueDateSubmitButton.textContent = "Change due date";
-
-        // dueDateSubmitButton.addEventListener("click", (event) => {
-        //     // event.stopPropagation();
-        // });
 
         dueDateInput.addEventListener("blur", () => {
 
@@ -193,7 +188,7 @@ export const tasksDOM = (() => {
         dueDateForm.appendChild(dueDateSubmitButton);
 
         const taskDueDate = document.createElement("span");
-        taskDueDate.textContent = task.dueDate;
+        taskDueDate.textContent = task.formatedDate;
 
         if (taskDueDate.textContent === "" || taskDueDate.textContent === "undefined") {
             taskDueDate.textContent = "Double click to add date";
