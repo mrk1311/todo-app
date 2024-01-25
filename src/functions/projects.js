@@ -14,7 +14,7 @@ export const projects = [
             {
                 id: 2,
                 name: 'Dodaj przycisk usuwania zadania',
-                description: 'hehe',
+                description: 'w celu umożliwienia usunięcia zadania',
                 dueDate: '2024-12-24',
                 priority: 'medium',
                 completed: true,
@@ -22,7 +22,7 @@ export const projects = [
             {
                 id: 3,
                 name: 'Zmień wygląd checkboxa i przycisków usuwania',
-                description: 'do chuja',
+                description: 'żeby lepiej wyglądały',
                 dueDate: '2024-01-24',
                 priority: 'high',
                 completed: false,
@@ -36,7 +36,7 @@ export const projects = [
             {
                 id: 1,
                 name: 'Dodaj zapis do local storage',
-                description: 'normalnie fajnie będzie',
+                description: 'aby dane nie zniknęły po odświeżeniu strony',
                 dueDate: '2020-11-24',
                 priority: 'high',
                 completed: false,
@@ -44,7 +44,7 @@ export const projects = [
             {
                 id: 2,
                 name: 'Dodaj tą bibliotekę z datami',
-                description: 'Żeby lepiej wyglądało',
+                description: 'w celu wyświetlania daty',
                 dueDate: '2021-01-20',
                 priority: 'low',
                 completed: false,
