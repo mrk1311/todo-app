@@ -1,0 +1,211 @@
+body {
+    background-image: linear-gradient(rgb(103, 128, 220), rgb(121, 211, 224));
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#main {
+    height: 100vh;
+    padding: 2rem;
+    max-width: 1000px;
+    min-width: 800px;
+}
+
+.tabs-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 10px;
+    background-image: linear-gradient( rgb(103, 128, 220), rgb(0, 0, 0));
+    border-radius: 10px 10px 0 0;
+}
+
+.tab {
+    /* border: 3px solid #000; */
+    border-radius: 10px 10px 0 0;
+    padding: 1rem;
+    cursor: pointer;
+    display: flex;
+    gap: 1rem;
+    flex-direction: row;
+    margin-bottom: -1px;
+    background-image: linear-gradient(transparent, rgb(0, 0, 0));
+}
+
+.tab.active {
+    background-color: #000;
+}
+
+.tasks-container {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+    gap: 3rem;
+    width: 100%;
+
+}
+
+.task-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 0 0 10px 10px;
+    background-color: #000;
+    padding-left: 1rem;
+}
+
+.task-header > * {
+    width: 25%;
+    text-align: center;
+}
+
+.task-main, .task-input-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    /* border: 1px solid #000; */
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.523));
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.task-input-container {
+    background-image: linear-gradient(transparent, rgb(0, 0, 0));
+    border-radius: 10px 10px 0 0;
+}
+
+.task-main {
+    position: relative;
+}
+
+.task-element {
+    width: 100%;
+}
+
+.task-details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.5rem;
+    margin-top: -10px;
+    border-radius: 0 0 10px 10px;
+    background-color: #000;
+    color: #fff;
+    border: 3px solid #000;
+}
+
+.task-main > span, .task-input {
+    width: 25%;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0.5rem;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    /* flex-grow: 0;
+    flex-shrink: 0; */
+}
+
+.tasks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.add-task-button {
+    width: 100%;
+    display: block;
+    padding: 0.5rem;
+    border-radius: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 0 0 10px 10px;
+    cursor: pointer;
+}
+
+.task-input {
+    width: 100%;
+    background-image: transparent;
+    border: none;
+    color: #fff;
+    text-align: center;
+}
+
+input {
+    font-size: 1rem;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    /* cursor: pointer; */
+}
+
+input[type="text"] {
+    border: none;
+    border-bottom: 1px solid #000;
+    height: 100%;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    width: 100%;
+}
+
+input[type="checkbox"] {
+    width: 2%;
+    height: 1rem;
+}
+
+select {
+    --webkit-appearance: none;
+    --moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    text-align: center;
+}
+
+select {
+    cursor: pointer;
+}
+
+input[type="date"] {
+    cursor: pointer;
+}
+
+.completed {
+    text-decoration: line-through;
+}
+
+#description-form {
+    width: 100%;
+}
+
+button {
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.task-details {
+    padding-top: 1rem;
+    padding-bottom: 0.5 rem;
+}
