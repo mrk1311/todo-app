@@ -7,11 +7,11 @@ export const tasksDOM = (() => {
         
         switch (priority) {
             case "high":
-                return "red";
+                return "#EB5353";
             case "medium":
-                return "orange";
+                return "#F9D923";
             case "low":
-                return "green";
+                return "#36AE7C";
             default:
                 return "black";
         }
@@ -36,24 +36,30 @@ export const tasksDOM = (() => {
         const priorityColor = getPriorityColor(task.priority);
         taskMain.style.backgroundColor = priorityColor;
 
+        const checkboxContainer = document.createElement("label");
+        checkboxContainer.classList.add("checkbox-container");
+
+        const checkmark = document.createElement("span");
+        checkmark.classList.add("checkmark");
+
         const checkbox = document.createElement("input");
         checkbox.setAttribute("type", "checkbox");
         checkbox.classList.add("task-checkbox");
         checkbox.checked = task.completed;
-        checkbox.addEventListener("click", (e) => {
+        checkboxContainer.addEventListener("click", (e) => {
             e.stopPropagation();
         });
         if (task.completed) {
-            taskMain.classList.add("completed");
+            taskElement.classList.add("completed");
             taskMain.style.backgroundColor = "grey";
         } 
         checkbox.addEventListener("change", () => {
             task.completed = checkbox.checked;
             if (task.completed) {
-                taskMain.classList.add("completed");
+                taskElement.classList.add("completed");
                 taskMain.style.backgroundColor = "grey";
             } else {
-                taskMain.classList.remove("completed");
+                taskElement.classList.remove("completed");
                 taskMain.style.backgroundColor = priorityColor;
             }
         });
@@ -161,8 +167,6 @@ export const tasksDOM = (() => {
                 taskDueDate.textContent = task.formatedDate;
             }
 
-            console.log(task);
-
             dueDateForm.style.display = "none";
             dueDateInput.style.display = "none";
             taskDueDate.style.display = "block";
@@ -173,6 +177,7 @@ export const tasksDOM = (() => {
         dueDateInput.classList.add("task-input");
         dueDateInput.value = task.dueDate;
         dueDateInput.style.display = "none";
+        dueDateInput.required = true;
 
         const dueDateSubmitButton = document.createElement("button");
         dueDateSubmitButton.style.display = "none";
@@ -205,15 +210,18 @@ export const tasksDOM = (() => {
         taskDeleteButton.textContent = "x";
         taskDeleteButton.classList.add("task-delete-button");
         taskDeleteButton.addEventListener("click", (event) => {
+            event.stopPropagation();
             if (confirm("Are you sure you want to delete this task?")) {
-                event.stopPropagation();
                 deleteTask(task);
                 taskElement.remove();
             }
         });
 
 
-        taskMain.appendChild(checkbox);
+        checkboxContainer.appendChild(checkbox);
+        checkboxContainer.appendChild(checkmark);
+        taskMain.appendChild(checkboxContainer);
+
         taskMain.appendChild(taskName);
         taskMain.appendChild(nameForm);
         taskMain.appendChild(taskDueDate);
@@ -313,7 +321,7 @@ export const tasksDOM = (() => {
                 addTask(currentTab, nameInput.value, descriptionInput.value, dueDateInput.value, priorityInput.value);
                 displayTasks(currentTab, tasksContainer);
             } else {
-                alert("Task name and priority are required!");
+                alert("Task name, due date and priority are required!");
             }
         });
 

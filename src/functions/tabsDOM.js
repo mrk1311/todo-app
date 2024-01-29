@@ -93,6 +93,7 @@ export const tabsDOM = (() => {
         });
 
         const deleteButton = document.createElement("button");
+        deleteButton.classList.add("delete-button");
 
         if (project.name !== "+") {
             // Add delete button ("x") only for projects (not for the "+" button)

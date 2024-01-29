@@ -12,4 +12,7 @@ tasksContainer.classList.add('tasks-container');
 main.appendChild(tabsContainer);
 main.appendChild(tasksContainer);
 
+const localProjects = JSON.parse(localStorage.getItem('projects'));
+console.log(localProjects)
+
 tabsDOM.createTabs(tabsContainer, tasksContainer);

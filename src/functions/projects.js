@@ -1,4 +1,4 @@
-const { toDate, format } = require("date-fns");
+const { toDate, format, add } = require("date-fns");
 
 export const projects = [
     {
@@ -31,6 +31,15 @@ export const projects = [
                 formatedDate: format(toDate('2024-01-24'), 'EEEE, MMM do, yyyy'),
                 priority: 'high',
                 completed: false,
+            },
+            {
+                id: 4,
+                name: 'Dodaj możliwość zmiany priorytetu',
+                description: 'w celu lepszego zarządzania zadaniami (w taskDetails)',
+                dueDate: '2024-02-24',
+                formatedDate: format(toDate('2024-02-24'), 'EEEE, MMM do, yyyy'),
+                priority: 'low',
+                completed: false,
             }
         ]
     },
@@ -59,6 +68,29 @@ export const projects = [
         ]
     }
 ];
+
+if (!localStorage.getItem('projects')) {
+    populateStorage();
+    console.log('Storage populated');
+} else {
+    getStorage();
+    console.log('Storage already populated');
+}
+
+function populateStorage() {
+    localStorage.setItem('projects', JSON.stringify(projects));
+}
+
+function getStorage() {
+    const projectsFromStorage = JSON.parse(localStorage.getItem('projects'));
+    projectsFromStorage.forEach(project => {
+        project.tasks.forEach(task => {
+            addTask(project, task.name, task.description, task.dueDate, task.priority);
+            console.log(task)
+        });
+    });
+}
+
 
 export function addProject(newProject) {
     projects.push(newProject);
