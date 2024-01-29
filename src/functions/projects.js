@@ -1,5 +1,9 @@
 const { toDate, format, add } = require("date-fns");
 
+const localProjects = JSON.parse(localStorage.getItem('projects'));
+
+// export const projects = [];
+
 export const projects = [
     {
         id: 1,
@@ -30,7 +34,7 @@ export const projects = [
                 dueDate: '2024-01-24',
                 formatedDate: format(toDate('2024-01-24'), 'EEEE, MMM do, yyyy'),
                 priority: 'high',
-                completed: false,
+                completed: true,
             },
             {
                 id: 4,
@@ -82,39 +86,48 @@ function populateStorage() {
 }
 
 function getStorage() {
-    const projectsFromStorage = JSON.parse(localStorage.getItem('projects'));
-    projectsFromStorage.forEach(project => {
-        project.tasks.forEach(task => {
-            addTask(project, task.name, task.description, task.dueDate, task.priority);
-            console.log(task)
-        });
+    projects.length = 0;
+    localProjects.forEach(project => {
+        projects.push(project);
+        console.log(project);
     });
+}
+
+function updateStorage() {
+    localStorage.clear();
+    localStorage.setItem('projects', JSON.stringify(projects));
 }
 
 
 export function addProject(newProject) {
     projects.push(newProject);
+    updateStorage();
 }
 
 export function editProject(project, newName) {
     project.name = newName;
+    updateStorage();
 }
 
 export function deleteProject(projectToDelete) {
     const index = projects.indexOf(projectToDelete);
     projects.splice(index, 1);
+    localProjects.splice(index, 1);
+    updateStorage();
 }
 
-export function addTask(project, newTaskName, newTaskDescription, newTaskDueDate, newTaskPriority) {
+export function addTask(project, newTaskName, newTaskDescription, newTaskDueDate, newTaskPriority, newStatus) {
     const task = {
         id: project.tasks.length + 1,
         name: newTaskName,
         description: newTaskDescription,
         dueDate: newTaskDueDate,
         formatedDate: format(toDate(newTaskDueDate), 'EEEE, MMMM do, yyyy'),
-        priority: newTaskPriority
+        priority: newTaskPriority,
+        completed: newStatus,
     };
     project.tasks.push(task);
+    updateStorage();
 }
 
 export function editTask(task, newName, newDescription, newDueDate, newPriority) {
@@ -123,6 +136,7 @@ export function editTask(task, newName, newDescription, newDueDate, newPriority)
     task.dueDate = newDueDate;
     task.formatedDate = format(toDate(newDueDate), 'EEEE, MMMM do, yyyy');
     task.priority = newPriority;
+    updateStorage();
 }
 
 export function deleteTask(taskToDelete) {
@@ -130,4 +144,5 @@ export function deleteTask(taskToDelete) {
     console.log(project)
     project.tasks.splice(project.tasks.indexOf(taskToDelete), 1);
     console.log(project.tasks)
+    updateStorage();
 }

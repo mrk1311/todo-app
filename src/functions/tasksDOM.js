@@ -9,7 +9,8 @@ export const tasksDOM = (() => {
             case "high":
                 return "#EB5353";
             case "medium":
-                return "#F9D923";
+                // return "#F9D923";
+                return "#FF9D5C";
             case "low":
                 return "#36AE7C";
             default:
@@ -56,11 +57,15 @@ export const tasksDOM = (() => {
         checkbox.addEventListener("change", () => {
             task.completed = checkbox.checked;
             if (task.completed) {
+                editTask(task, task.name, task.description, task.dueDate, task.priority, true)
                 taskElement.classList.add("completed");
                 taskMain.style.backgroundColor = "grey";
+                console.log(task);
             } else {
+                editTask(task, task.name, task.description, task.dueDate, task.priority, false)
                 taskElement.classList.remove("completed");
                 taskMain.style.backgroundColor = priorityColor;
+                console.log(task);
             }
         });
         
@@ -317,7 +322,7 @@ export const tasksDOM = (() => {
         addButton.classList.add("add-task-button");
 
         addButton.addEventListener("click", () => {
-            if (nameInput.value && priorityInput.value) {
+            if (nameInput.value && priorityInput.value && dueDateInput.value) {
                 addTask(currentTab, nameInput.value, descriptionInput.value, dueDateInput.value, priorityInput.value);
                 displayTasks(currentTab, tasksContainer);
             } else {

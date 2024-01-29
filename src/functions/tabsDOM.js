@@ -7,54 +7,12 @@ export const tabsDOM = (() => {
 
     let currentTab = null;
 
-    // const createForm = (project, tasksContainer, tabsContainer) => {
-    //     const form = document.createElement("form");
-
-    //     const inputField = document.createElement("input");
-    //     inputField.type = "text";
-    //     // inputField.classList.add("task-input");
-    //     inputField.placeholder = "Task name";
-    //     inputField.value = project ? project.name : "";
-
-    //     inputField.addEventListener("blur", () => {
-    //         form.remove();
-    //     });
-
-    //     const submitButton = document.createElement("button");
-    //     submitButton.textContent = project ? "Edit project" : "Add project";
-    //     submitButton.classList.add("add-task-button");
-
-    //     submitButton.addEventListener("click", (event) => {
-    //         event.preventDefault();
-    //         if (inputField.value) {
-    //             if (project) {
-    //                 editProject(project, inputField.value);
-    //             } else {
-    //                 editProject(project, inputField.value);
-    //                 // currentTab = newProject;
-    //             }
-    //             createTabs(tabsContainer, tasksContainer);
-    //         }
-
-    //         form.remove();
-    //     });
-
-    //     form.appendChild(inputField);
-    //     form.appendChild(submitButton);
-
-    //     return form
-
-    // };
-
     const createTabElement = (project, tabsContainer, tasksContainer) => {
         const tab = document.createElement("div");
         tab.classList.add("tab");
 
         const tabName = document.createElement("span");
         tabName.textContent = project.name;
-
-        // const changeTabNameForm = createForm(project, tasksContainer, tabsContainer);
-        // changeTabNameForm.style.display = "none";
 
         const changeTabNameForm = document.createElement("form");
         changeTabNameForm.style.display = "none";
@@ -88,7 +46,6 @@ export const tabsDOM = (() => {
             tabName.style.display = "none";
             changeTabNameForm.style.display = "block";
             inputField.style.display = "block";
-            console.log(changeTabNameForm)
             inputField.focus();
         });
 
@@ -123,27 +80,31 @@ export const tabsDOM = (() => {
             tabsContainer.removeChild(tabsContainer.firstChild);
         }
 
-        projects.forEach((project, index) => {
-            const tab = createTabElement(project, tabsContainer, tasksContainer);
+        // Create tabs
+        if (projects.length) {
+            projects.forEach((project, index) => {
+                const tab = createTabElement(project, tabsContainer, tasksContainer);
 
-            tab.addEventListener("click", () => {
-                currentTab = project;
-                tasksDOM.displayTasks(currentTab, tasksContainer);
-                tabsContainer.childNodes.forEach((tab) => {
-                    tab.classList.remove("active");
+                tab.addEventListener("click", () => {
+                    currentTab = project;
+                    tasksDOM.displayTasks(currentTab, tasksContainer);
+                    tabsContainer.childNodes.forEach((tab) => {
+                        tab.classList.remove("active");
+                    });
+                    tab.classList.add("active");
                 });
-                tab.classList.add("active");
+
+                tabsContainer.appendChild(tab);
+
+                if (index === 0) {
+                    currentTab = project;
+                    tasksDOM.displayTasks(currentTab, tasksContainer);
+                    tab.classList.add("active");
+                }
             });
-
-            tabsContainer.appendChild(tab);
-
-            if (index === 0) {
-                currentTab = project;
-                tasksDOM.displayTasks(currentTab, tasksContainer);
-                tab.classList.add("active");
-            }
-        });
-
+        } else {
+            return
+        }
         const newTabInput = document.createElement("input");
         newTabInput.type = "text";
         newTabInput.classList.add("tab-input");
@@ -172,7 +133,11 @@ export const tabsDOM = (() => {
                 tabsContainer.childNodes.forEach((tab) => {
                     tab.classList.remove("active");
                 });
-                tabsContainer.lastChild.previousElementSibling.classList.add("active");
+                if (projects.length > 1) {
+                    tabsContainer.lastChild.previousElementSibling.classList.add("active");
+                } else {
+                    // tabsContainer.lastChild.classList.add("active");
+                }
             }
 
             newTabInput.style.display = "none";
