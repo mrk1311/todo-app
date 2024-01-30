@@ -1,3 +1,4 @@
+import { add } from "date-fns";
 import { addTask, editTask, deleteTask } from "./projects";
 
 export const tasksDOM = (() => {
@@ -60,12 +61,10 @@ export const tasksDOM = (() => {
                 editTask(task, task.name, task.description, task.dueDate, task.priority, true)
                 taskElement.classList.add("completed");
                 taskMain.style.backgroundColor = "grey";
-                console.log(task);
             } else {
                 editTask(task, task.name, task.description, task.dueDate, task.priority, false)
                 taskElement.classList.remove("completed");
                 taskMain.style.backgroundColor = priorityColor;
-                console.log(task);
             }
         });
         
@@ -105,6 +104,7 @@ export const tasksDOM = (() => {
             taskName.style.display = "block";
             nameForm.style.display = "none";
             nameInput.style.display = "none";
+            nameInput.value = task.name;
         });
 
         taskName.addEventListener("dblclick", () => {
@@ -124,7 +124,7 @@ export const tasksDOM = (() => {
             if (newDescription) {
                 task.description = newDescription;
                 editTask(task, task.name, newDescription, task.dueDate, task.priority);
-                taskDescription.textContent = "Task Description: " + newDescription;
+                taskDescription.textContent = newDescription;
             }
 
             descriptionForm.style.display = "none";
@@ -222,6 +222,74 @@ export const tasksDOM = (() => {
             }
         });
 
+        const priorityInput = document.createElement("select");
+        priorityInput.classList.add("task-input");
+
+        priorityInput.addEventListener("change", () => {
+            task.priority = priorityInput.value;
+            editTask(task, task.name, task.description, task.dueDate, priorityInput.value);
+            taskPriority.textContent = "Priority: " + priorityInput.value;
+            taskMain.style.backgroundColor = getPriorityColor(priorityInput.value);
+            priorityInput.blur();
+        });
+
+
+        const priorityForm = document.createElement("form");
+        priorityForm.style.display = "none";
+        // priorityForm.addEventListener("submit", (event) => {
+        //     event.preventDefault();
+
+        //     const newPriority = priorityInput.value;
+        //     if (newPriority) {
+        //         task.priority = newPriority;
+        //         editTask(task, task.name, task.description, task.dueDate, newPriority);
+        //         taskPriority.textContent = newPriority;
+        //         taskMain.style.backgroundColor = getPriorityColor(newPriority);
+        //     }
+
+        //     priorityForm.style.display = "none";
+        //     priorityInput.style.display = "none";
+        //     taskPriority.style.display = "block";
+        // });
+
+        const highPriority = document.createElement("option");
+        highPriority.setAttribute("value", "high");
+        highPriority.textContent = "High";
+
+        const mediumPriority = document.createElement("option");
+        mediumPriority.setAttribute("value", "medium");
+        mediumPriority.textContent = "Medium";
+
+        const lowPriority = document.createElement("option");
+        lowPriority.setAttribute("value", "low");
+        lowPriority.textContent = "Low";
+
+        priorityInput.appendChild(highPriority);
+        priorityInput.appendChild(mediumPriority);
+        priorityInput.appendChild(lowPriority);
+
+        priorityInput.value = task.priority;
+        priorityInput.style.display = "none";
+
+        priorityInput.addEventListener("blur", () => {
+            taskPriority.style.display = "block";
+            priorityForm.style.display = "none";
+            priorityInput.style.display = "none";
+        });
+
+        priorityForm.appendChild(priorityInput);
+
+        const taskPriority = document.createElement("span");
+        taskPriority.textContent = "Priority: " + task.priority;
+
+        taskPriority.addEventListener("dblclick", () => {
+            taskPriority.style.display = "none";
+            priorityForm.style.display = "block";
+            priorityInput.style.display = "block";
+            priorityInput.focus();
+            console.log(task);
+        });
+
 
         checkboxContainer.appendChild(checkbox);
         checkboxContainer.appendChild(checkmark);
@@ -237,6 +305,9 @@ export const tasksDOM = (() => {
 
         taskDetails.appendChild(taskDescription);
         taskDetails.appendChild(descriptionForm);
+        taskDetails.appendChild(taskPriority);
+        taskDetails.appendChild(priorityForm);
+
         taskElement.appendChild(taskDetails);
 
         return taskElement;
@@ -254,10 +325,10 @@ export const tasksDOM = (() => {
 
         // Dodaj opisy kolumn
         const taskName = document.createElement("span");
-        taskName.textContent = "Task name";
+        taskName.textContent = "Name / Description";
 
         const taskDueDate = document.createElement("span");
-        taskDueDate.textContent = "Task due date";
+        taskDueDate.textContent = "Due date / Priority";
 
         const tasksHeader = document.createElement("div");
         tasksHeader.classList.add("task-header");
@@ -291,14 +362,12 @@ export const tasksDOM = (() => {
         const dueDateInput = document.createElement("input");
         dueDateInput.setAttribute("type", "date");
         dueDateInput.classList.add("task-input");
+        dueDateInput.required = true;
+        dueDateInput.value = new Date().toISOString().slice(0, 10);
 
         const priorityInput = document.createElement("select");
         priorityInput.classList.add("task-input");
         priorityInput.required = true;
-
-        const placeholder = document.createElement("option");
-        placeholder.setAttribute("value", "");
-        placeholder.textContent = "Click to select priority";
 
         const highPriority = document.createElement("option");
         highPriority.setAttribute("value", "high");
@@ -312,23 +381,14 @@ export const tasksDOM = (() => {
         lowPriority.setAttribute("value", "low");
         lowPriority.textContent = "Low";
 
-        priorityInput.appendChild(placeholder);
         priorityInput.appendChild(highPriority);
         priorityInput.appendChild(mediumPriority);
         priorityInput.appendChild(lowPriority);
 
-        const addButton = document.createElement("button");
-        addButton.textContent = "Add task";
+        const addButton = document.createElement("input");
+        addButton.setAttribute("type", "submit");
+        addButton.value = "Add task";
         addButton.classList.add("add-task-button");
-
-        addButton.addEventListener("click", () => {
-            if (nameInput.value && priorityInput.value && dueDateInput.value) {
-                addTask(currentTab, nameInput.value, descriptionInput.value, dueDateInput.value, priorityInput.value);
-                displayTasks(currentTab, tasksContainer);
-            } else {
-                alert("Task name, due date and priority are required!");
-            }
-        });
 
         const taskInputContainer = document.createElement("div");
         taskInputContainer.classList.add("task-input-container");
@@ -338,8 +398,18 @@ export const tasksDOM = (() => {
         taskInputContainer.appendChild(dueDateInput);
         taskInputContainer.appendChild(priorityInput);
 
-        const addNewTaskContainer = document.createElement("div");
+        const addNewTaskContainer = document.createElement("form");
         addNewTaskContainer.classList.add("add-new-task-container");
+
+        addNewTaskContainer.addEventListener("submit", (event) => {
+            event.preventDefault();
+            if (nameInput.value && priorityInput.value && dueDateInput.value) {
+                addTask(currentTab, nameInput.value, descriptionInput.value, dueDateInput.value, priorityInput.value);
+                displayTasks(currentTab, tasksContainer);
+            } else {
+                alert("Task name is required!");
+            }
+        });
 
         addNewTaskContainer.appendChild(taskInputContainer);
         addNewTaskContainer.appendChild(addButton);

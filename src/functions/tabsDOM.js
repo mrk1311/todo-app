@@ -1,6 +1,6 @@
 // tabsDOM.js
 
-import { projects, addProject, deleteProject, editProject } from "./projects";
+import { projects, addProject, deleteProject, editProject, getTodayTasks } from "./projects";
 import { tasksDOM } from "./tasksDOM";
 
 export const tabsDOM = (() => {
@@ -43,16 +43,18 @@ export const tabsDOM = (() => {
         changeTabNameForm.appendChild(inputField);
         
         tabName.addEventListener("dblclick", () => {
-            tabName.style.display = "none";
-            changeTabNameForm.style.display = "block";
-            inputField.style.display = "block";
-            inputField.focus();
+            if (project.name !== "+" && project.name !== "Today") {
+                tabName.style.display = "none";
+                changeTabNameForm.style.display = "block";
+                inputField.style.display = "block";
+                inputField.focus();
+            }
         });
 
         const deleteButton = document.createElement("button");
         deleteButton.classList.add("delete-button");
 
-        if (project.name !== "+") {
+        if (project.name !== "+" && project.name !== "Today") {
             // Add delete button ("x") only for projects (not for the "+" button)
 
             deleteButton.textContent = "x";
@@ -142,7 +144,6 @@ export const tabsDOM = (() => {
 
             newTabInput.style.display = "none";
         });
-
 
         // Add tab for adding new projects
         const addTab = createTabElement({ name: "+" }, tabsContainer, tasksContainer);

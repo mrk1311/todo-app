@@ -1,5 +1,4 @@
 body {
-    /* background-image: linear-gradient(rgb(47, 47, 47), rgb(47, 47, 47) 0); */
     background-color: #187498;
     color: #fff;
     font-family: 'Roboto', sans-serif;
@@ -28,7 +27,6 @@ body {
     width: 100%;
     gap: 10px;
     background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.443));
-    /* background-color: #465775; */
     background-color: #60B2E5;
     border-radius: 10px 10px 0 0;
 }
@@ -50,7 +48,6 @@ body {
 }
 
 .tab {
-    /* border: 3px solid #000; */
     border-radius: 10px 10px 0 0;
     padding: 1rem;
     cursor: pointer;
@@ -59,8 +56,6 @@ body {
     flex-direction: row;
     margin-bottom: -1px;
     background-image: linear-gradient( transparent, rgb(0, 0, 0));
-    /* background-color: #828282; */
-    /* background-color: gray; */
 }
 
 .tab:hover {
@@ -77,11 +72,9 @@ body {
 .tasks-container {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     justify-content: center;
     gap: 3rem;
     width: 100%;
-
 }
 
 .task-header {
@@ -91,7 +84,8 @@ body {
     justify-content: space-around;
     border-radius: 0 0 10px 10px;
     background-color: #000;
-    padding-left: 1rem;
+    padding-left: 6rem;
+    padding-right: 7rem;
 }
 
 .task-header > * {
@@ -104,7 +98,6 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    /* border: 1px solid #000; */
     background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.523));
     border-radius: 10px;
     color: #fff;
@@ -112,9 +105,6 @@ body {
 }
 
 .task-input-container {
-    /* background-image: linear-gradient(transparent, rgb(255, 255, 255)); */
-    /* background-color: #fff; */
-    
     background-color: #60B2E5;
     border-radius: 10px 10px 0 0;
 
@@ -132,25 +122,27 @@ body {
 .task-details {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 
     padding: 0.5rem;
+    padding-left: 5rem;
+    padding-right: 6rem;
     margin-top: -10px;
     border-radius: 0 0 10px 10px;
     background-color: #60B2E5;
-    /* background-color: #414066; */
 
     background-image: linear-gradient( rgba(0, 0, 0, 0.443),  transparent);
     color: #fff;
-    /* border: 3px solid #000; */
 
     padding-top: 1rem;
     padding-bottom: 0.5 rem;
 }
 
-/* .completed .task-details {
-    background-color: #5E4B56;
-} */
+.task-details > * {
+    width: 50%;
+    text-align: center;
+    flex-wrap: wrap;
+}
 
 .task-main > span, .task-input {
     width: 25%;
@@ -161,10 +153,7 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     padding: 0.5rem;
-    /* border-radius: 10px; */
     flex-wrap: wrap;
-    /* flex-grow: 0;
-    flex-shrink: 0; */
 }
 
 .tasks-list {
@@ -207,12 +196,10 @@ input {
     background-color: transparent;
     border: none;
     color: #fff;
-    /* cursor: pointer; */
 }
 
 input[type="text"] {
     border: none;
-    /* border-bottom: 1px solid #000; */
     height: 100%;
     color:#000;
 }
@@ -278,7 +265,6 @@ input[type="date"] {
 
 .completed button {
     border: 1px solid #000;
-    /* background-color: #000; */
     color: #000;
 }
 
@@ -287,7 +273,6 @@ input[type="date"] {
 .checkbox-container {
     display: block;
     position: relative;
-    /* padding-left: 35px; */
     margin-bottom: 1.5rem;
     cursor: pointer;
     font-size: 22px;
@@ -355,7 +340,6 @@ input[type="date"] {
 
   .info {
     text-align: center;
-    /* margin-top: 5rem; */
     color: #60B2E5;
   }
 

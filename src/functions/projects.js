@@ -2,9 +2,14 @@ const { toDate, format, add } = require("date-fns");
 
 const localProjects = JSON.parse(localStorage.getItem('projects'));
 
-// export const projects = [];
+export const todayTasks = [];
 
 export const projects = [
+    // {
+    //     id: 0,
+    //     name: 'Today',
+    //     tasks: todayTasks,
+    // },
     {
         id: 1,
         name: 'Etap 1',
@@ -13,8 +18,8 @@ export const projects = [
                 id: 1,
                 name: 'Dodaj input do przycisku +',
                 description: 'w celu dodania nowego projektu',
-                dueDate: '2024-11-24',
-                formatedDate: format(toDate('2024-11-24'), 'EEEE, MMM do, yyyy'),
+                dueDate: '2024-01-30',
+                formatedDate: format(toDate('2024-01-30'), 'EEEE, MMM do, yyyy'),
                 priority: 'low',
                 completed: true,
             },
@@ -22,8 +27,8 @@ export const projects = [
                 id: 2,
                 name: 'Dodaj przycisk usuwania zadania',
                 description: 'w celu umożliwienia usunięcia zadania',
-                dueDate: '2024-12-24',
-                formatedDate: format(toDate('2024-12-24'), 'EEEE, MMM do, yyyy'),
+                dueDate: '2024-01-30',
+                formatedDate: format(toDate('2024-01-30'), 'EEEE, MMM do, yyyy'),
                 priority: 'medium',
                 completed: true,
             },
@@ -43,7 +48,7 @@ export const projects = [
                 dueDate: '2024-02-24',
                 formatedDate: format(toDate('2024-02-24'), 'EEEE, MMM do, yyyy'),
                 priority: 'low',
-                completed: false,
+                completed: true,
             }
         ]
     },
@@ -58,7 +63,7 @@ export const projects = [
                 dueDate: '2020-11-24',
                 formatedDate: format(toDate('2024-11-24'), 'EEEE, MMM do, yyyy'),
                 priority: 'high',
-                completed: false,
+                completed: true,
             },
             {
                 id: 2,
@@ -89,7 +94,6 @@ function getStorage() {
     projects.length = 0;
     localProjects.forEach(project => {
         projects.push(project);
-        console.log(project);
     });
 }
 
@@ -141,8 +145,21 @@ export function editTask(task, newName, newDescription, newDueDate, newPriority)
 
 export function deleteTask(taskToDelete) {
     const project = projects.find(project => project.tasks.includes(taskToDelete));
-    console.log(project)
     project.tasks.splice(project.tasks.indexOf(taskToDelete), 1);
-    console.log(project.tasks)
     updateStorage();
+}
+
+export function getTodayTasks() {
+
+    todayTasks.length = 0;
+    projects.forEach(project => {
+        project.tasks.forEach(task => {
+            console.log(format(new Date(), 'yyyy-MM-dd'));
+            if (task.dueDate === format(new Date(), 'yyyy-MM-dd')) {
+                todayTasks.push(task);
+                console.log('task added')
+            }
+        });
+    });
+    return todayTasks;
 }
