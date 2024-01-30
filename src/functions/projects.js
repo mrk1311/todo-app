@@ -116,7 +116,7 @@ export function editProject(project, newName) {
 export function deleteProject(projectToDelete) {
     const index = projects.indexOf(projectToDelete);
     projects.splice(index, 1);
-    localProjects.splice(index, 1);
+    // localProjects.splice(index, 1);
     updateStorage();
 }
 

@@ -104,9 +104,8 @@ export const tabsDOM = (() => {
                     tab.classList.add("active");
                 }
             });
-        } else {
-            return
         }
+        
         const newTabInput = document.createElement("input");
         newTabInput.type = "text";
         newTabInput.classList.add("tab-input");

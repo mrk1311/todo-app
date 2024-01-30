@@ -236,21 +236,6 @@ export const tasksDOM = (() => {
 
         const priorityForm = document.createElement("form");
         priorityForm.style.display = "none";
-        // priorityForm.addEventListener("submit", (event) => {
-        //     event.preventDefault();
-
-        //     const newPriority = priorityInput.value;
-        //     if (newPriority) {
-        //         task.priority = newPriority;
-        //         editTask(task, task.name, task.description, task.dueDate, newPriority);
-        //         taskPriority.textContent = newPriority;
-        //         taskMain.style.backgroundColor = getPriorityColor(newPriority);
-        //     }
-
-        //     priorityForm.style.display = "none";
-        //     priorityInput.style.display = "none";
-        //     taskPriority.style.display = "block";
-        // });
 
         const highPriority = document.createElement("option");
         highPriority.setAttribute("value", "high");
